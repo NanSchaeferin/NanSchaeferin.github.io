@@ -19,7 +19,7 @@
       key and a private key to encrypt and decrypt data; protocols that define the usage of cryptographic algorithms.
       The classification of the field of cryptology can be seen as follows:</p>
     <figure>
-      <img src="Classification_Cryptology.PNG" alt="The classification of the field of cryptology" class="center">
+      <img src="Classification_Cryptology.png" alt="The classification of the field of cryptology" class="center">
       <figcaption>Fig.1 - The classificaiton of the field of cryptology.</figcaption>
     </figure>
     
@@ -30,7 +30,7 @@
       her message so that Oscar is not able to know the meaning in spite of hacking it. To the other end, Bob must know
       the decryption method of this encrypted message to read it. The procedure is like:</p>
     <figure>
-      <img src="Symmetric_Cryptosystem.PNG" alt="Symmetric-key cryptosystem" class="center">
+      <img src="Symmetric_Cryptosystem.png" alt="Symmetric-key cryptosystem" class="center">
       <figcaption>Fig.2 - Alice-Oscar-Bob Crytosystem.</figcaption>
     </figure>
     <p>In Fig.1 we can see Alice and Bob substitute the previous insecure channel with cryptosystem. The cryptosystem
@@ -44,9 +44,57 @@
     </ul>
 
     <h2>Caesar Cipher</h2>
-    <p>One of the most comnon symmetric ciphers is substitution cipher, of which Caesar cipher or shift cipher is a
-      special case.</p>
-    
+    <p>One of the most comnon symmetric ciphers is substitution cipher, which substitutes each letter with different
+      one. One of the most well-known is  Caesar cipher or shift cipher. Caesar just shifted each letter in plaintexts
+      by a specific positions to generate the ciphertext. For example, Caesar's most famous phrase "Veni, vidi, vici"
+      will be encrypted to "Yhql, ylgl, ylfl" with a right of 3. If we enumberate the alphabets, then this encryption
+      function of one letter x with the right shift k as the key can be described mathematically like, </p>
+    <center>y &equiv; x + k <i>mod</i> 26</center>
+    <p>The corresponding decryption function sharing the same parameter, i.e. the key k is,</p>
+    <center>x &equiv; y - k <i>mod</i> 26</center>
+    <p>However, Caesar cipher is not really secure. People such as Oscar can crack it by means of either brute-force
+      search or letter frequency analysis. Unlike ordinary substitution cipher of tremendous key space, Caesar cipher
+      only adopts a small key space namely 26. It is very easy to exhaustively traverse the key space. Even if it had
+      huge key space, Oscar still should be prone to attack it. Because in writings, some letters appear much more
+      frequently that the others. Oscar can analyse the frequency of letters in the ciphertext to guess the key. </p>
+
+    <h2>Data Encryption Standard (DES)</h2>
+    <p>Data encryption standard (DES) encrypting blocks of 64 bits using a key of 56 bits was released by IBM and
+      National Security Agency(NSA) in 1970s. DES combines two primitive operation proposed by the famous information
+      theoriest Claude Shannon to ensure a strong encryption: Confusion that hides the relationship between key and
+      ciphertext; Diffusion that addresses the issue of frequency analysis to map one plaintext symbol to many
+      ciphertext symbols.</p>
+    <p>DES derives from feistel cipher which has a structure like in Fig.3. Plaintext firstly goes through an initial
+      permutation permutating bitwise, then it splits into two halves of which each has 32 bits. These two halves will
+      be dealed in Feistel network for 16 rounds.</p>
+    <center><i>L<sub>i</sub> = R<sub>i-1</sub></i>,</center>
+    <center><i>R<sub>i</sub> = L<sub>i-1</sub></i> &oplus; <i>f(R<sub>i-1</sub>, k<sub>i</sub>)</i></center>
+    <p>As the formula above shows, in each round, the right half is kept while the left half is encrypted by <i>f-</i>
+      function with the key and the right half as parameters. Afterwards, the outcome is swapped and fed into next
+      round. Finally, the result will be permutated reversely.</p>
+    <figure>
+      <img src="Feistel_Structure.png" alt="The Feistel structure of DES" class="center">
+      <figcaption>Fig.3-The inner structure of DES</figcaption>
+    </figure>
+    <p>It is necessary to mention here, from Fig-3 it seems DES has a key of 64 bits but in fact every 8-th bit is used
+      as the parity bit. Therefore the key lenght of DES is still 56 bits. After bitwise permutation, the 56 bits' key
+      is cyclically left shifted either by 1 bit or 2 bits round by round.  Then let's look into the detail of <i>f-</i>
+      function which is crucial due to taking both confusion and diffusion. As Fig-4 depicts, the right half of 32 bits
+      is expanded in the expansion E-box to 8 blocks of 4 bits. In this procedure, 4 bits in the same block are assigned
+      to 6 bits and the E-box adds diffusion to DES. The 8 blocks' results of XOR between the expanded right half and
+      the key return to S-box that is nothing else than a mapping table. Each mapping table has a size of 4*16 and uses
+      the first and the last bits of input as the row index and the rest 4 as column index to fetch output. The
+      complicated nonlinear S-box adds confusion to DES.</p>
+    <figure>
+      <img src="f-function.png" alt="Block diagram of the f-function" class="center">
+      <figcaption>Fig.4-Diffusion and Confusion in f-function</figcaption>
+    </figure>
+    <p>The one advantage of DES is encryption shares the same function and key with decryption. Because the encryption
+      and decryption functions of XOR are identical, decryption of DES is just reversely to do the same rounds
+      computation from the end tothe top of encryption procedure.</p>
+    <p>From 1970s to 1990s, DES has been proven secure and promoted widely. Unfortunately, the development of hardware
+      with just brute-force search made DES of small key space not reliable anymore.</p>
+
     
   </body>
 </html>
