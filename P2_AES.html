@@ -60,7 +60,7 @@
     round coefficents from <i>Galios Field</i>.
   </p>
   <figure>
-    <img src="Mixcolumn.png" alt="Mixcolumn of AES" class="center">
+    <img src="MixColumn.png" alt="Mixcolumn of AES" class="center">
     <figcaption>Fig.3-The Mixcolumn operation of AES</figcaption>
   </figure>
 
@@ -68,9 +68,8 @@
   <p> Since AES is not composed of Feistel Structure, the structure of decryption model should be exactly inversion of encryption.
     From the ByteSubstitution, ShiftRows and MixColumn these three different sublayers, the inversion is rather naive. We only have
     to compute the inversion of matrix in MixColumn and shift the result reversely. Concerning ByteSubstitution, it is a just
-    step to look up S-Box table again. 
+    step to look up S-Box table again.
   </p>
-
 
     <div class="center">
       <ul class="pagination">
