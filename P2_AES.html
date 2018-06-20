@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fundamental Theory</title>
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async>
+</script>
+</head>
+<body>
+
+
+  <h1>Cryptography(II)&emsp;Advanced Encryption Standard (AES)</h1>
+  <h3>Nan Jiang &emsp; 20/06/2018</h3>
+
+  <h2>Introduction to AES</h2>
+  <p>The <i>Advanced Encryption Standard(AES)</i>, which was proposed by Belgian scientists Joan Daemen and Vincent
+    Rijmen, is the most popular among all the symmetric ciphers. It is widely used in many systems such as the
+    Internet security standard IPsec, TLS, the Wi-Fi encryption standard IEEE 802.11i, the secure shell network
+    protocol SSH(Secure Shell), the Internet phone Skype. The two Belgian researchers named their system <i>Rijndael</i>
+    and it is designed based off of Galois Field. The block cipher can handle a block with 128 bit size and contains
+    three keys of different lengths 128, 192 and 256 bit. One more advantage over DES, AES proves to be efficient in both
+    hardware and software. Other than brute-force, no methods by now are able to break AES.</p>
+
+  <h2>One Glance at Galois Field</h2>
+  <p>A <i>Field</i> is a set of elements that can form an additive group and a multiplicative group with distributivity.
+    The number of the elements inside is called the cardinality or order of the field. If the order is limited, then the
+    field is <i>Finite Field</i> or <i>Galios Field</i> that is interesting to us. In AES, a <i>Galios Field</i> of 256
+    elements <i>GF</i>(256)is used. The element in <i>Galios Field</i> of <i>GF</i>(\(2^8\)) is a polynomial of the order 8
+    like $$A(x)=a_7x^7+...+a_1x+a_0,\quad a_i \in GF(2)={0,1}.$$ The addition operation defined in <i>Galios Field</i> is
+    simply polynomial addition. We add the coefficients of corresponding terms and then modulo 2. The multiplication rule
+    is based on the multiplication of polynomials as well. We simpy multiplies two polynomials and modulo some polynomial
+    called "irreducible polynomial" in order to make the result again into the field. In detail, for two elements \(A(x)\)
+    and \(B(x)\) in <i>GF</i>(\(2^8\)), then $$Addition: \quad C(x)=A(x)+B(x)=\sum_{i=0}^{7}c_ix^i, \quad c_i\equiv a_i+b_i
+    \, mod\, 2$$ $$Multiplication: \quad C(x)=A(x)\cdot B(x)\, mod \, P(x)$$ The irreducible polynomial here chosen is \(P(x)
+    = x^8+x^4+x^3+x+1\). With help of this irreducible polynomial we can generate a inversion table of all the elements in
+    <i>GF</i>\((2^8)\) as Fig.1, where the row and column are the hexadecimal notation of the coefficients.
+  </p>
+  <figure>
+    <img src="AES_Inversion_Table.png" alt="The S-Box of AES" class="center">
+    <figcaption>Fig.1-The inversion table of AES</figcaption>
+  </figure>
+
+  <h2>The Internal Structure of AES</h2>
+  <p>The input of AES is 128 bits or 16 bytes. Fig.2 shows in each round in AES, each of 16 bytes will go through ByteSubstitution
+    layer, ShiftRows layer and MixColumn layer in order. Unlike DES that uses 8 different S-Box to ensure confusion, AES adopts 16
+    identical S-box to do nonlinear function. The S-Box is from the table in Fig.1. The diffusion layer contains two sublayers
+    spreading the influence of one single bit over the entire state. Here, ShiftRows and MixColumn transformations perform a
+    linear operation. ShiftRows simply shifts each bytes in the second, third, fourth positions of every subblocks to the position
+    identical shifts.
+  </p>
+  <figure>
+    <img src="AES_Structure.png" alt="The internal structure of AES" class="center">
+    <figcaption>Fig.2-The internal structure of AES</figcaption>
+  </figure>
+  <p>The operation MixColumn of AES is the multiplication defined in <i>Galios Field</i>. The corresponding multiplication can be
+    seen from Fig.3 and it promises one byte changing anywhere will change all the 16 bytes output. After ByteSubstitution,
+    ShiftRows and MixColumn, the results will be bitwise XOR with the key. The keys in case of 128 bits requires 10 rounds to
+    produce all the subkeys used in AES. The key schedule consists mainly XOR operation, rotation, ByteSubstitution and variable
+    round coefficents from <i>Galios Field</i>.
+  </p>
+  <figure>
+    <img src="Mixcolumn.png" alt="Mixcolumn of AES" class="center">
+    <figcaption>Fig.3-The Mixcolumn operation of AES</figcaption>
+  </figure>
+
+  <h2>Decryption of AES</h2>
+  <p> Since AES is not composed of Feistel Structure, the structure of decryption model should be exactly inversion of encryption.
+    From the ByteSubstitution, ShiftRows and MixColumn these three different sublayers, the inversion is rather naive. We only have
+    to compute the inversion of matrix in MixColumn and shift the result reversely. Concerning ByteSubstitution, it is a just
+    step to look up S-Box table again. 
+  </p>
+
+
+    <div class="center">
+      <ul class="pagination">
+      	<li><a href="index.html">&#8810;</a></li>
+      	<li><a href="index.html">1</a></li>
+      	<li><a class="active" href="#">2</a></li>
+      	<li><a href="#">3</a></li>
+      	<li><a href="#">4</a></li>
+      	<li><a href="#">5</a></li>
+      	<li><a href="#">&#8811;</a></li>
+      </ul>
+    </div>
+</body>
+</html>
