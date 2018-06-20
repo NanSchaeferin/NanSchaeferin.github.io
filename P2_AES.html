@@ -25,9 +25,9 @@
   <h2>One Glance at Galois Field</h2>
   <p>A <i>Field</i> is a set of elements that can form an additive group and a multiplicative group with distributivity.
     The number of the elements inside is called the cardinality or order of the field. If the order is limited, then the
-    field is <i>Finite Field</i> or <i>Galios Field</i> that is interesting to us. In AES, a <i>Galios Field</i> of 256
-    elements <i>GF</i>(256)is used. The element in <i>Galios Field</i> of <i>GF</i>(\(2^8\)) is a polynomial of the order 8
-    like $$A(x)=a_7x^7+...+a_1x+a_0,\quad a_i \in GF(2)={0,1}.$$ The addition operation defined in <i>Galios Field</i> is
+    field is <i>Finite Field</i> or <i>Galois Field</i> that is interesting to us. In AES, a <i>Galois Field</i> of 256
+    elements <i>GF</i>(256)is used. The element in <i>Galois Field</i> of <i>GF</i>(\(2^8\)) is a polynomial of the order 8
+    like $$A(x)=a_7x^7+...+a_1x+a_0,\quad a_i \in GF(2)={0,1}.$$ The addition operation defined in <i>Galois Field</i> is
     simply polynomial addition. We add the coefficients of corresponding terms and then modulo 2. The multiplication rule
     is based on the multiplication of polynomials as well. We simpy multiplies two polynomials and modulo some polynomial
     called "irreducible polynomial" in order to make the result again into the field. In detail, for two elements \(A(x)\)
@@ -53,11 +53,11 @@
     <img src="AES_Structure.png" alt="The internal structure of AES" class="center">
     <figcaption>Fig.2-The internal structure of AES</figcaption>
   </figure>
-  <p>The operation MixColumn of AES is the multiplication defined in <i>Galios Field</i>. The corresponding multiplication can be
+  <p>The operation MixColumn of AES is the multiplication defined in <i>Galois Field</i>. The corresponding multiplication can be
     seen from Fig.3 and it promises one byte changing anywhere will change all the 16 bytes output. After ByteSubstitution,
     ShiftRows and MixColumn, the results will be bitwise XOR with the key. The keys in case of 128 bits requires 10 rounds to
     produce all the subkeys used in AES. The key schedule consists mainly XOR operation, rotation, ByteSubstitution and variable
-    round coefficents from <i>Galios Field</i>.
+    round coefficents from <i>Galois Field</i>.
   </p>
   <figure>
     <img src="MixColumn.png" alt="MixColumn of AES" class="center">
